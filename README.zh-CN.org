@@ -1,0 +1,63 @@
+#+title: mijia.el
+#+author: Qiqi Jin
+#+language: zh
+
+* 概述
+
+=mijia.el= 是一个 Emacs 包，用于在 Emacs 中管理和控制小米米家智能设备。它通过与 =mijiaAPI= 命令行工具交互，提供设备列表查看、场景管理等功能。
+
+* 前提
+
+需要安装 =ctable= 包用于表格显示。
+
+** 外部依赖
+
+需要安装 =mijiaAPI= 命令行工具。
+
+* 安装
+
++ 克隆项目到你自己的 Emacs 配置目录下：
+#+BEGIN_SRC sh
+  git clone https://github.com/ginqi7/mijia.el ~/.emacs.d/lisp/mijia.el
+#+END_SRC
+
++ 把克隆的路径添加到 =load-path= 当中
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/lisp/mijia.el")
+#+END_SRC
+
+* 配置
+
+#+BEGIN_SRC emacs-lisp
+  (require 'mijia)
+#+END_SRC
+
+** 变量
+
+| 变量           | 默认值    | 解释                           |
+|----------------+-----------+--------------------------------|
+| mijia-command  | mijiaAPI  | 用于与米家 API 交互的命令行工具 |
+
+* 功能
+
++ =mijia-list-devices= - 以表格形式显示所有米家设备
++ =mijia-list-scenes= - 以表格形式显示所有米家场景，点击可执行
++ =mijia-run-scene=  - 执行选中的场景（在场景表格缓冲区中使用）
+
+* 使用示例
+
+#+BEGIN_SRC emacs-lisp
+  ;; 列出所有设备
+  M-x mijia-list-devices
+
+  ;; 列出所有场景
+  M-x mijia-list-scenes
+
+  ;; 在场景缓冲区中选中某行并点击（或调用 mijia-run-scene）来执行场景
+#+END_SRC
+
+* 项目地址
+
+https://github.com/ginqi7/mijia.el
+
+* Footnotes

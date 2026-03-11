@@ -1,0 +1,65 @@
+#+title: mijia.el
+#+author: Qiqi Jin
+#+language: en
+
+#+HTML: <a href="https://github.com/ginqi7/mijia.el/blob/master/README.zh-CN.org"><img src="https://img.shields.io/badge/README-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-555555.svg"/></a>
+
+* Overview
+
+=mijia.el= is an Emacs package for managing and controlling Xiaomi MiJia smart home devices within Emacs. It interacts with the =mijiaAPI= command-line tool to provide device listing, scene management, and more.
+
+* Prerequisites
+
+The =ctable= package is required for table display.
+
+** External Dependencies
+
+The =mijiaAPI= command-line tool must be installed.
+
+* Install
+
++ Clone the project to your Emacs configuration directory:
+  #+BEGIN_SRC sh
+    git clone https://github.com/ginqi7/mijia.el ~/.emacs.d/lisp/mijia.el
+  #+END_SRC
+
++ Add the path to =load-path=:
+  #+BEGIN_SRC emacs-lisp
+    (add-to-list 'load-path "~/.emacs.d/lisp/mijia.el")
+  #+END_SRC
+
+* Configuration
+
+#+BEGIN_SRC emacs-lisp
+  (require 'mijia)
+#+END_SRC
+
+** Variables
+
+| variable      | default value | description                          |
+|---------------+---------------+--------------------------------------|
+| mijia-command | mijiaAPI      | Command-line tool for MiJia API      |
+
+* Features
+
++ =mijia-list-devices= - Display all MiJia devices in a ctable buffer
++ =mijia-list-scenes= - Display all MiJia scenes in a ctable buffer; click to execute
++ =mijia-run-scene=    - Run the selected scene (used within the scenes buffer)
+
+* Example Usage
+
+#+BEGIN_SRC emacs-lisp
+  ;; List all devices
+  M-x mijia-list-devices
+
+  ;; List all scenes
+  M-x mijia-list-scenes
+
+  ;; In the scenes buffer, select a row and click (or call mijia-run-scene) to execute
+#+END_SRC
+
+* Project Home
+
+https://github.com/ginqi7/mijia.el
+
+* Footnotes
