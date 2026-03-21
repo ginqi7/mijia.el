@@ -30,12 +30,27 @@
   "Command used to interact with the MiJia API.")
 
 ;;; Internal Functions
+(cl-defun mijia--message (&key title msg)
+  "Display a notification message using knockknock or fallback to `message'.
+
+TITLE is the notification title.
+MSG is the notification message content.
+
+If `knockknock' is available, use its desktop notification system;
+otherwise, display the message in the echo area."
+  (if (featurep 'knockknock)
+      (knockknock-notify
+       :title title
+       :message msg)
+    (message "Title:[%s]\nMessage:[%s]" title msg)))
+
 (cl-defun mijia--command-run (&key option alist)
   "Execute a MiJia command and optionally parse its output.
 
 OPTION is the command-line option string passed to `mijia-command'.
 ALIST is an association list mapping output keys to prefixes for parsing."
   (let ((output (shell-command-to-string (format "%s %s" mijia-command option))))
+    (mijia--message :title option)
    (when alist
      (mijia--parse-output output alist))))
 
@@ -112,11 +127,15 @@ ACTIONS is an optional function to call when a table row is clicked."
 
 ;;; Interactive Functions
 (defun mijia-run-scene ()
-  "Run the MiJia scene selected in the current ctable buffer."
+  "Run the MiJia scene selected in the current ctable buffer.
+
+This function retrieves the selected row from the ctable component
+and extracts the scene Name (3rd column) to pass to `mijia--run-scene'.
+Should be called from a `*mijia-scenes*' buffer with a row selected."
   (interactive)
   (let* ((cp (ctbl:cp-get-component))
          (row (ctbl:cp-get-selected-data-row cp)))
-   (mijia--run-scene (nth 1 row))))
+   (mijia--run-scene (nth 2 row))))
 
 (defun mijia-list-devices ()
   "Display a list of all MiJia devices in a ctable buffer."
