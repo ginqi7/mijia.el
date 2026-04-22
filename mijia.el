@@ -26,7 +26,7 @@
 (require 'ctable)
 
 ;;; Custom Variables
-(defcustom mijia-command "mijiaAPI"
+(defcustom mijia-command "uvx mijiaAPI"
   "Command used to interact with the MiJia API.")
 
 ;;; Internal Functions
@@ -119,9 +119,10 @@ ACTIONS is an optional function to call when a table row is clicked."
            (model (make-ctbl:model :column-model column-model :data data))
            (component)
            (inhibit-read-only t))
+      (switch-to-buffer (current-buffer))
       (erase-buffer)
       (setq component (ctbl:create-table-component-region :model model))
-      (switch-to-buffer (current-buffer))
+      (goto-line 3)
       (when actions
         (ctbl:cp-add-click-hook component (lambda () (funcall actions)))))))
 
